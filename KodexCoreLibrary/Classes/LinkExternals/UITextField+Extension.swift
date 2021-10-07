@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MaterialComponents
 import UIKit
 
 
@@ -102,84 +101,4 @@ class LinkedLabel: UILabel {
 }
 
 
-@IBDesignable  // Lets you change a UIView instance in storyboard to this class, so you can visualize it and add constraints to it
-class FloatingPlaceholderTextField: UIView,UITextFieldDelegate{
-    
-    private var textInput: MDCTextField!
-    private var controller: MDCTextInputControllerOutlined!
-    private let textColor = UIColor(named: "textColor")
-    
-    private var placeholderText = ""
-    //@IBDesignable lets you modify an instance of this element in the main.storyboard
-    @IBInspectable var setPlaceholderText: String{
-        get{
-            return self.placeholderText
-        }
-        set(str){
-            self.placeholderText = str
-        }
-    }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupInputView()
-        setupContoller()
-        
-    }
-    private func setupContoller(){
-        // MARK: Text Input Controller Setup
-        
-        // Step 1
-        if(controller != nil){return}
-        controller = MDCTextInputControllerOutlined(textInput: textInput)
-        
-        // Step 2
-        controller.activeColor = textColor
-        controller.normalColor = textColor
-        controller.textInput?.textColor = textColor
-        controller.inlinePlaceholderColor = textColor
-        controller.textInputFont = UIFont.systemFont(ofSize: CGFloat(14))
-        controller.inlinePlaceholderFont = UIFont.systemFont(ofSize: CGFloat(14))
-        controller.leadingUnderlineLabelFont = UIFont.systemFont(ofSize: CGFloat(14))
-        controller.trailingUnderlineLabelFont = UIFont.systemFont(ofSize: CGFloat(14))
-        controller.floatingPlaceholderActiveColor = textColor
-        controller.floatingPlaceholderNormalColor = textColor
-        controller.borderRadius = 10
-        
-        
-    }
-    private func setupInputView(){
-        //MARK: Text Input Setup
-        if let _ = self.viewWithTag(1){return}
-        // Step 1
-        textInput = MDCTextField.init()
-        
-        // Step 2
-        textInput.tag = 1
-        
-        // Step 3
-        textInput.translatesAutoresizingMaskIntoConstraints = false
-        textInput.font = UIFont.systemFont(ofSize: CGFloat(14))
-        // Step 4
-        
-        self.addSubview(textInput)
-        textInput.cornerRadius = 10
-        
-        // Step 5
-        textInput.placeholder = placeholderText
-        
-        // Step 6
-        textInput.delegate = self
-        
-        // Step 7
-        textInput.textColor = textColor
-        
-        // Step 8
-        NSLayoutConstraint.activate([
-            (textInput.topAnchor.constraint(equalTo: self.topAnchor)),
-            (textInput.bottomAnchor.constraint(equalTo: self.bottomAnchor)),
-            (textInput.leadingAnchor.constraint(equalTo: self.leadingAnchor)),
-            (textInput.trailingAnchor.constraint(equalTo: self.trailingAnchor))
-        ])
-    }
-    
-}
+
